@@ -7,7 +7,11 @@ export class RankHandler {
     static getAppearances(text: string): AppearanceCount {
         const appearances: AppearanceCount = {};
 
-        text.trim().split(' ').forEach(word => {
+        text.split(' ').forEach(word => {
+            if (word === '') {
+                return;
+            }
+
             if (appearances[word]) {
                 appearances[word]++;
             } else {

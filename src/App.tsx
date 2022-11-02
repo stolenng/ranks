@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 
 import './App.css';
 
 import {RankHandler, WordsByRank} from "./logic/rank-handler";
 import Input from "./components/input";
 import Stars from "./components/stars";
-import {orderBy} from 'lodash';
+import {orderBy, debounce} from 'lodash';
 import WikipediaApi from "./logic/wikipedia-api";
 
 // default value
@@ -36,10 +36,14 @@ function App() {
 
     const sortedRanks = orderBy(Object.keys(wordsByRank), undefined, ['desc']);
 
+    console.log(`Wikipedia text by words:`, textByWord)
+
+    const debouncedUpdateRanks = useCallback(debounce(updateRanks, 500), []);
+
     return (
         <div className="App">
             {/*add debounce*/}
-            <Input onChange={updateRanks}/>
+            <Input onChange={debouncedUpdateRanks}/>
             <table style={{ width: '100%'}} >
                 <thead>
                     <tr>
