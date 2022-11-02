@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
 
 import './App.css';
 
@@ -32,17 +32,17 @@ function App() {
 
     useEffect(() => {
         updateRanks(defaultText);
+        // eslint-disable-next-line
     }, []);
 
     const sortedRanks = orderBy(Object.keys(wordsByRank), undefined, ['desc']);
 
     console.log(`Wikipedia text by words:`, textByWord)
 
-    const debouncedUpdateRanks = useCallback(debounce(updateRanks, 500), []);
+    const debouncedUpdateRanks = debounce(updateRanks, 500);
 
     return (
         <div className="App">
-            {/*add debounce*/}
             <Input onChange={debouncedUpdateRanks}/>
             <table style={{ width: '100%'}} >
                 <thead>
