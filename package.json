@@ -44,5 +44,10 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.187"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "axios": "axios/dist/node/axios.cjs"
+    }
   }
 }
