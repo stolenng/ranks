@@ -1,10 +1,10 @@
 import {max} from "lodash";
 
-export type AppearanceCount = {[key: string]: number};
-export type WordsByRank = {[key: string]: string[]};
+export type AppearanceCount = { [key: string]: number };
+export type WordsByRank = { [key: string]: string[] };
 
 export class RankHandler {
-    static getAppearances(text: string):  AppearanceCount{
+    static getAppearances(text: string): AppearanceCount {
         const appearances: AppearanceCount = {};
 
         text.trim().split(' ').forEach(word => {
@@ -26,7 +26,7 @@ export class RankHandler {
         Object.keys(appearances).forEach(word => {
             const currentValue = appearances[word];
 
-            const rank = Math.ceil((currentValue/maxAppearances)*maxRank);
+            const rank = Math.ceil((currentValue / maxAppearances) * maxRank);
 
             if (ranks[rank]) {
                 ranks[rank].push(word);

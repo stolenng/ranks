@@ -6,21 +6,26 @@ import {RankHandler, WordsByRank} from "./logic/rank-handler";
 import Input from "./components/input";
 import Stars from "./components/stars";
 import {orderBy} from 'lodash';
+import WikipediaApi from "./logic/wikipedia-api";
 
 // default value
 export const defaultText = "car car bicycle car bicycle car bicycle car bicycle car bicycle car bicycle plane plane truck";
 
 function App() {
     const [wordsByRank, setRanks] = useState<WordsByRank>({});
+    const [textByWord, setTexts] = useState<{[key: string]: string}>({});
 
     const updateRanks = (text: string) => {
         const appearances = RankHandler.getAppearances(text);
+        const wordsToFetch = Object.keys(appearances).filter((word) => !textByWord[word]);
 
-        console.log(appearances);
+        WikipediaApi.getTextByWords(wordsToFetch).then(result => setTexts({...textByWord, ...result}))
+
+        console.log(`Word appearances:`, appearances);
 
         const ranks = RankHandler.calculateRanks(appearances);
 
-        console.log(ranks);
+        console.log(`Words by rank:`, ranks);
 
         setRanks(ranks);
     };
@@ -33,6 +38,7 @@ function App() {
 
     return (
         <div className="App">
+            {/*add debounce*/}
             <Input onChange={updateRanks}/>
             <table style={{ width: '100%'}} >
                 <thead>
@@ -51,6 +57,9 @@ function App() {
                                 return (
                                     <tr key={word}>
                                         <td>{word}(<Stars stars={Number(rank)}/>)</td>
+                                        <td>
+                                            <span dangerouslySetInnerHTML={{__html: textByWord[word]}}/>
+                                        </td>
                                     </tr>
                                 )
                             });

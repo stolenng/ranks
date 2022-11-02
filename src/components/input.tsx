@@ -7,7 +7,10 @@ interface Pros {
 
 const Input: FunctionComponent<Pros> = ({onChange}) => {
     return (
-        <input defaultValue={defaultText} style={{width: '650px', margin: '15px'}} onChange={(e) => onChange(e.target.value)} />
+        <input
+            defaultValue={defaultText}
+            style={{width: '650px'}}
+            onChange={(e) => onChange(e.target.value)} />
     )
 };
 

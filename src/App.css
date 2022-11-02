@@ -1,6 +1,13 @@
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.App {
+  margin: 15px;
+}
+
+table {
+  margin-top: 15px;
+}
+
+table, th, td {
+  border: 1px solid;
 }
 
 @media (prefers-reduced-motion: no-preference) {
